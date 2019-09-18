@@ -22,7 +22,11 @@ namespace file_renamer
             
             if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                MessageBox.Show("Correct Path\n" + folderBrowser.SelectedPath);
+                textBoxFolderPath.Text = folderBrowser.SelectedPath;
+            }
+            else
+            {
+                MessageBox.Show("Please select a valid folder");
             }
         }
     }
