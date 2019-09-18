@@ -15,5 +15,15 @@ namespace file_renamer
         {
             InitializeComponent();
         }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            
+            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                MessageBox.Show("Correct Path\n" + folderBrowser.SelectedPath);
+            }
+        }
     }
 }
