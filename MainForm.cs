@@ -13,6 +13,59 @@ using System.Runtime.InteropServices;
 
 namespace file_renamer
 {
+    public partial class MainForm : Form
+    {
+        FolderBrowserDialog folderBrowser;
+
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            folderBrowser = new FolderBrowserDialog();
+            
+            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textBoxFolderPath.Text = folderBrowser.SelectedPath;
+            }
+            else
+            {
+                MessageBox.Show("Please select a valid folder");
+            }
+        }
+
+        private void ButtonRename_Click(object sender, EventArgs e)
+        {
+            ProcessDirectory(folderBrowser.SelectedPath);
+        }
+
+        public static void ProcessDirectory(string path)
+        {
+            string[] fileEntries = Directory.GetFiles(path);
+            Array.Sort(fileEntries, new NaturalStringComparer());
+            int count = 0;
+
+            foreach (string fileName in fileEntries)
+            {
+                string fileLocation = Path.GetDirectoryName(fileName);
+                string fileExtension = Path.GetExtension(fileName);
+
+                if (fileExtension.Equals(".ini"))
+                {
+                    Console.WriteLine(".ini file untouched");
+                }
+                else if (fileExtension.Equals(".png"))
+                {
+                    count++;
+                    string newFileName = fileLocation + "\\" + count + fileExtension;
+                    System.IO.File.Move(fileName, newFileName);
+                }
+            }
+        }
+    }
+
     [SuppressUnmanagedCodeSecurity]
     internal static class SafeNativeMethods
     {
@@ -33,43 +86,6 @@ namespace file_renamer
         public int Compare(FileInfo a, FileInfo b)
         {
             return SafeNativeMethods.StrCmpLogicalW(a.Name, b.Name);
-        }
-    }
-
-    public partial class MainForm : Form
-    {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            
-            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                textBoxFolderPath.Text = folderBrowser.SelectedPath;
-                ProcessDirectory(folderBrowser.SelectedPath);
-            }
-            else
-            {
-                MessageBox.Show("Please select a valid folder");
-            }
-        }
-
-        public static void ProcessDirectory(string path)
-        {
-            string[] fileEntries = Directory.GetFiles(path);
-            Array.Sort(fileEntries, new NaturalStringComparer());
-            
-
-            foreach (string fileName in fileEntries)
-            {
-                Console.WriteLine(fileName);
-            }
-
-            Console.WriteLine(fileEntries.Length);
         }
     }
 }

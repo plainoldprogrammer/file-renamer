@@ -68,6 +68,7 @@
             this.buttonRename.TabIndex = 3;
             this.buttonRename.Text = "Rename Files";
             this.buttonRename.UseVisualStyleBackColor = true;
+            this.buttonRename.Click += new System.EventHandler(this.ButtonRename_Click);
             // 
             // MainForm
             // 
