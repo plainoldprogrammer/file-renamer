@@ -42,7 +42,7 @@
             this.buttonSelectFolder.TabIndex = 0;
             this.buttonSelectFolder.Text = "...";
             this.buttonSelectFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectFolder.Click += new System.EventHandler(this.Button1_Click);
+            this.buttonSelectFolder.Click += new System.EventHandler(this.ButtonSelectFolder_Click);
             // 
             // labelFolderPath
             // 
@@ -79,6 +79,8 @@
             this.Controls.Add(this.textBoxFolderPath);
             this.Controls.Add(this.labelFolderPath);
             this.Controls.Add(this.buttonSelectFolder);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "File Renamer";
             this.ResumeLayout(false);

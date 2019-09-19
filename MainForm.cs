@@ -15,15 +15,17 @@ namespace file_renamer
         public MainForm()
         {
             InitializeComponent();
+            buttonRename.Enabled = false;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonSelectFolder_Click(object sender, EventArgs e)
         {
             folderBrowser = new FolderBrowserDialog();
             
             if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 textBoxFolderPath.Text = folderBrowser.SelectedPath;
+                buttonRename.Enabled = true;
             }
             else
             {
@@ -58,6 +60,8 @@ namespace file_renamer
                     System.IO.File.Move(fileName, newFileName);
                 }
             }
+
+            MessageBox.Show("Files renaming completed");
         }
     }
 
